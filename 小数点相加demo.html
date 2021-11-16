@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const MultiAdd =(...args)=>{
+            let m = 0;
+            args.forEach(el=>{
+                try{
+                    m+=el.toString().split(".")[1].length
+                }catch(e){
+
+                }
+            })
+            return Array.prototype.reduce.apply(args.slice(1),[(a,b)=>Number(b.toString().replace(".",""))*a,Number(args[0].toString().replace('.',''))]) / Math.pow(10,m)
+        }
+        //小数相加
+        const dealDecimal = (...args)=>{
+            let m = Math.pow(10,Math.max(...args.map(el=>{
+                try{
+                    return el.toString().split('.')[1].length;
+                }catch(e){
+                    return 0
+                }
+            })))
+            return Array.prototype.reduce.call(args,(a,b)=>MultiAdd(b,m) + a,0) / m
+        }
+        console.log(dealDecimal(1.1221111,1.1,1.1));
+    </script>
+</body>
+</html>
